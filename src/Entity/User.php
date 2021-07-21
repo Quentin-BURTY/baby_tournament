@@ -23,6 +23,11 @@ class User implements UserInterface
      */
     private $username;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Tournament::class, inversedBy="User")
+     */
+    private $tournament;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,5 +76,17 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getTournament(): ?Tournament
+    {
+        return $this->tournament;
+    }
+
+    public function setTournament(?Tournament $tournament): self
+    {
+        $this->tournament = $tournament;
+
+        return $this;
     }
 }
