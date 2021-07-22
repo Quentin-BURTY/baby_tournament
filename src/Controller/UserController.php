@@ -17,7 +17,6 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -36,7 +35,7 @@ class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('user_new');
         }
 
         return $this->render("user/new.html.twig", [

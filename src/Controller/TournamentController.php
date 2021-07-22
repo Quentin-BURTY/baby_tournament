@@ -17,7 +17,6 @@ class TournamentController extends AbstractController
     public function index(TournamentRepository $tournamentRepository): Response
     {
         return $this->render('tournament/index.html.twig', [
-            'controller_name' => 'TournamentController',
             'tournament' => $tournamentRepository->findAll(),
 
         ]);
@@ -26,15 +25,12 @@ class TournamentController extends AbstractController
     #[Route('/new', name: 'new')]
     public function new(Request $request): Response
     {
-        $form = $this->createForm(TournamentType::class);
+        $tournament = new Tournament();
+        $form = $this->createForm(TournamentType::class , $tournament);
         $form->handleRequest($request);
 
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $tournament = new Tournament();
-            
-            $tournament->setName($request->request->get('tournament')['name']);
-            $tournament->setNbUser($request->request->get('tournament')['nbUser']);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($tournament);
             $entityManager->flush();
@@ -54,5 +50,15 @@ class TournamentController extends AbstractController
         $entityManager->remove($tournament);
         $entityManager->flush();
         return $this->redirectToRoute('tournament_index');
+    }
+
+    #[Route('/{id}/show', name: 'show')]
+    public function show(Tournament $tournament): Response
+    {
+        return $this->render('tournament/show.html.twig', [
+            'tournaments' => $tournament,
+            'users' => $tournament->getUsers(),
+
+        ]);
     }
 }

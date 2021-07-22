@@ -6,6 +6,9 @@
    {% for tournaments in tournament %}
         <tr>
             <td>{{tournaments.name}}</td>
+            <td><a href="{{ path('tournament_delete', {'id': tournaments.id}) }}">supprimer</a></td>
+            <td><a href="{{ path('tournament_show', {'id': tournaments.id}) }}">afficher</a></td>
+
         </tr>
         {% else %}
          <tr>
@@ -13,4 +16,5 @@
         </tr>
     {% endfor %}
         <td><a href="{{ path('tournament_new') }}">Créer un tournois</a></td>
+
 {% endblock %}

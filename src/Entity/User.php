@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -24,9 +26,15 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tournament::class, inversedBy="User")
+     * @ORM\ManyToMany(targetEntity=Tournament::class, mappedBy="users")
      */
-    private $tournament;
+    private $tournaments;
+
+    public function __construct()
+    {
+        $this->tournaments = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -78,15 +86,31 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getTournament(): ?Tournament
+    /**
+     * @return Collection|Tournament[]
+     */
+    public function getTournaments(): Collection
     {
-        return $this->tournament;
+        return $this->tournaments;
     }
 
-    public function setTournament(?Tournament $tournament): self
+    public function addTournament(Tournament $tournament): self
     {
-        $this->tournament = $tournament;
+        if (!$this->tournaments->contains($tournament)) {
+            $this->tournaments[] = $tournament;
+            $tournament->addUser($this);
+        }
 
         return $this;
     }
+
+    public function removeTournament(Tournament $tournament): self
+    {
+        if ($this->tournaments->removeElement($tournament)) {
+            $tournament->removeUser($this);
+        }
+
+        return $this;
+    }
+
 }

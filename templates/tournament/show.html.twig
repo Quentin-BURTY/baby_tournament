@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TournamentController!
+{% endblock %}
+
+{% block body %}
+
+	<tr>
+		<td>{{tournaments.name}}</td>
+            <td><a href="{{ path('tournament_delete', {'id': tournaments.id}) }}">supprimer ce tournois</a></td>
+
+		{% for user in users %}
+			<td>{{user.username}}</td>
+		</tr>
+	{% else %}
+		<tr>
+			<td>Pas de tournois créé</td>
+		</tr>
+	{% endfor %}
+
+	<td>
+		<a href="{{ path('tournament_new') }}">Créer un tournois</a>
+		<a href="{{ path('tournament_index') }}">Retour à la liste des tournois</a>
+	</td>
+
+{% endblock %}

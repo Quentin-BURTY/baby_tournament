@@ -35,14 +35,15 @@ class Tournament
     private $nbUser;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="tournament")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="tournaments")
      */
-    private $User;
+    private $users;
+
 
     public function __construct()
     {
         $this->games = new ArrayCollection();
-        $this->User = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,16 +108,15 @@ class Tournament
     /**
      * @return Collection|User[]
      */
-    public function getUser(): Collection
+    public function getUsers(): Collection
     {
-        return $this->User;
+        return $this->users;
     }
 
     public function addUser(User $user): self
     {
-        if (!$this->User->contains($user)) {
-            $this->User[] = $user;
-            $user->setTournament($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
         }
 
         return $this;
@@ -124,13 +124,9 @@ class Tournament
 
     public function removeUser(User $user): self
     {
-        if ($this->User->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getTournament() === $this) {
-                $user->setTournament(null);
-            }
-        }
+        $this->users->removeElement($user);
 
         return $this;
     }
+
 }
