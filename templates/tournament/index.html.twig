@@ -1,20 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Hello TournamentController!{% endblock %}
+{% block title %}Hello TournamentController!
+{% endblock %}
 
-{% block body %}
-   {% for tournaments in tournament %}
-        <tr>
-            <td>{{tournaments.name}}</td>
-            <td><a href="{{ path('tournament_delete', {'id': tournaments.id}) }}">supprimer</a></td>
-            <td><a href="{{ path('tournament_show', {'id': tournaments.id}) }}">afficher</a></td>
+{% block content %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
 
-        </tr>
-        {% else %}
-         <tr>
-            <td>Pas de tournois créé</td>
-        </tr>
-    {% endfor %}
-        <td><a href="{{ path('tournament_new') }}">Créer un tournois</a></td>
+	<div class="example-wrapper">
+		{% for tournaments in tournament %}
+			<tr>
+				<td>{{tournaments.name}}</td></br>
+				<td>
+					<a href="{{ path('tournament_delete', {'id': tournaments.id}) }}">supprimer</a>
+				</td>
+				<td>
+					<a href="{{ path('tournament_show', {'id': tournaments.id}) }}">afficher</a></br>
+				</td>
 
+			</tr>
+		{% else %}
+			<tr>
+				<td>Pas de tournois créé</td>
+			</tr>
+		{% endfor %}
+		<tr>
+			<td>
+				<a href="{{ path('tournament_new') }}">Créer un autre tournois</a>
+			</td>
+		</tr>
+	</div>
 {% endblock %}

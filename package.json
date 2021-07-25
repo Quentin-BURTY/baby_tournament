@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/Quentin-BURTY/baby_tournament/issues"
   },
-  "homepage": "https://github.com/Quentin-BURTY/baby_tournament#readme"
+  "homepage": "https://github.com/Quentin-BURTY/baby_tournament#readme",
+  "dependencies": {
+    "@popperjs/core": "^2.9.2",
+    "bootstrap": "^5.0.2"
+  }
 }
