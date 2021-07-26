@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Hello TournamentController!
+{% block title %}Tournois
 {% endblock %}
 
 {% block content %}
@@ -31,12 +31,12 @@
 			</tr>
 		{% else %}
 			<tr>
-				<td>Pas de tournois créé</td>
+				<td>Pas de tournois créé</td></br>
 			</tr>
 		{% endfor %}
 		<tr>
 			<td>
-				<a href="{{ path('tournament_new') }}">Créer un autre tournois</a>
+				<a href="{{ path('tournament_new') }}">Créer un nouveau tournois</a>
 			</td>
 		</tr>
 	</div>

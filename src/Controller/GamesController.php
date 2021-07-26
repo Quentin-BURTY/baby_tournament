@@ -19,10 +19,10 @@ class GamesController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'new')]
-    public function new(Request $request): Response
-    {
-        $games = new Games();
+    // #[Route('/new', name: 'new')]
+    // public function new(Request $request): Response
+    // {
+    //     $games = new Games();
         
-    }
+    // }
 }
